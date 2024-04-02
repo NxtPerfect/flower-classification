@@ -1,0 +1,4 @@
+- [x] load data
+- [ ] linear regression
+- [ ] train
+- [ ] predict
