@@ -1,4 +1,5 @@
 - [x] load data
-- [ ] linear regression
-- [ ] train
+- [x] linear regression
+- [/] train
+    - [ ] incompatible shape [16] vs [16, 32]
 - [ ] predict

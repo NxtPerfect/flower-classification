@@ -1,3 +1,5 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import numpy as np
@@ -28,13 +30,14 @@ def loadData():
     # Split the dataset into training and testing sets
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
     
-    return (x_train, x_test), (y_train, y_test)
+    return (x_train, y_train), (x_test, y_test)
 
 def createLinearRegressionModel():
     model = tf.keras.Sequential([
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(1),
-        # tf.keras.layers.Dropout(0.2)
+        tf.keras.layers.Flatten(input_shape=(224,224,3)),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.2),
+        tf.keras.layers.Dense(32, activation='relu')
         ])
     return model
 
@@ -56,7 +59,6 @@ def run():
     model = createLinearRegressionModel()
     model.summary()
     predictions = model(x_train[:1]).numpy()
-    tf.nn.softmax(predictions).numpy()
     # loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     # loss_fn(y_train[:1], predictions).numpy()
 
